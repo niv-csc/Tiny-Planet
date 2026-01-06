@@ -25,10 +25,11 @@ const getEmotionColor = (emotion: PlanetEmotion): THREE.Color => {
 
 const ElementMarker = ({ element }: { element: PlacedElement }) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 2 + element.position.x) * 0.02;
+      meshRef.current.position.y =
+        Math.sin(state.clock.elapsedTime * 2 + element.position.x) * 0.02;
     }
   });
 
@@ -62,18 +63,19 @@ const ElementMarker = ({ element }: { element: PlacedElement }) => {
     }
   };
 
-  // Position slightly above the planet surface
   const normalizedPos = new THREE.Vector3(
     element.position.x,
     element.position.y,
     element.position.z
-  ).normalize().multiplyScalar(1.05);
+  )
+    .normalize()
+    .multiplyScalar(1.05);
 
   return (
     <mesh ref={meshRef} position={[normalizedPos.x, normalizedPos.y, normalizedPos.z]}>
       {getElementShape(element.type)}
-      <meshStandardMaterial 
-        color={getElementColor(element.type)} 
+      <meshStandardMaterial
+        color={getElementColor(element.type)}
         emissive={getElementColor(element.type)}
         emissiveIntensity={0.3}
       />
@@ -91,16 +93,13 @@ const PlanetMesh = ({ emotion, placedElements, onPlaceElement, selectedElement }
 
   useFrame((state) => {
     if (meshRef.current) {
-      // Gentle rotation
       meshRef.current.rotation.y += 0.002;
-      
-      // Emotion-based effects
+
       if (emotion === 'worried' || emotion === 'angry') {
         meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 5) * 0.02;
         meshRef.current.rotation.z = Math.cos(state.clock.elapsedTime * 5) * 0.02;
       }
-      
-      // Breathing effect for happy planet
+
       if (emotion === 'happy') {
         const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.02;
         meshRef.current.scale.setScalar(scale);
@@ -138,17 +137,15 @@ const PlanetMesh = ({ emotion, placedElements, onPlaceElement, selectedElement }
 
   return (
     <group>
-      {/* Glow effect */}
       <Sphere ref={glowRef} args={[1.1, 32, 32]}>
-        <meshBasicMaterial 
-          color={planetColor} 
-          transparent 
+        <meshBasicMaterial
+          color={planetColor}
+          transparent
           opacity={0.15}
           side={THREE.BackSide}
         />
       </Sphere>
 
-      {/* Main planet */}
       <Sphere
         ref={meshRef}
         args={[1, 64, 64]}
@@ -164,12 +161,11 @@ const PlanetMesh = ({ emotion, placedElements, onPlaceElement, selectedElement }
         />
       </Sphere>
 
-      {/* Placed elements */}
-      {placedElements.map((element) => (
+      {/* ✅ Safe guard added here */}
+      {(placedElements ?? []).map((element) => (
         <ElementMarker key={element.id} element={element} />
       ))}
 
-      {/* Hover indicator */}
       {hoverPoint && selectedElement && (
         <mesh position={hoverPoint.clone().normalize().multiplyScalar(1.02)}>
           <sphereGeometry args={[0.08, 16, 16]} />
@@ -177,7 +173,6 @@ const PlanetMesh = ({ emotion, placedElements, onPlaceElement, selectedElement }
         </mesh>
       )}
 
-      {/* Atmosphere rings */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.3, 0.02, 8, 64]} />
         <meshBasicMaterial color={planetColor} transparent opacity={0.3} />
@@ -191,24 +186,13 @@ const Planet = () => {
 
   return (
     <div className="w-full h-full min-h-[400px]">
-      <Canvas
-        camera={{ position: [0, 0, 4], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-      >
+      <Canvas camera={{ position: [0, 0, 4], fov: 45 }} gl={{ antialias: true, alpha: true }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, -5]} intensity={0.3} color="#4A90D9" />
         <pointLight position={[0, 3, 0]} intensity={0.5} color="#FFD166" />
 
-        <Stars 
-          radius={100} 
-          depth={50} 
-          count={2000} 
-          factor={4} 
-          saturation={0} 
-          fade 
-          speed={1}
-        />
+        <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
 
         <PlanetMesh
           emotion={emotion}
