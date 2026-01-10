@@ -4,7 +4,6 @@ import ElementPalette from './ElementPalette';
 import StatusPanel from './StatusPanel';
 import GameHeader from './GameHeader';
 import Tutorial from './Tutorial';
-import NPC from '../NPC'; // if GameScreen.tsx is in src/components/game
 import { useGameStore } from '@/store/gameStore';
 
 const GameScreen = () => {
@@ -37,46 +36,6 @@ const GameScreen = () => {
           >
             🖱️ Drag to rotate • Scroll to zoom • Click to place
           </motion.div>
-
-          {/* NPCs */}
-          <div className="absolute bottom-20 left-10 z-50">
-            <NPC
-              name="Caretaker"
-              sprite="/assets/npcs/caretaker.png"
-              dialogue={[
-                "Welcome to Tiny Planet!",
-                "Your role is to nurture and protect the planet.",
-                "Plant trees, conserve water, and keep balance."
-              ]}
-              onTriggerEvent={() => increaseNature(5)}
-            />
-          </div>
-
-          <div className="absolute bottom-20 right-10 z-50">
-            <NPC
-              name="Scientist"
-              sprite="/assets/npcs/scientist.png"
-              dialogue={[
-                "I’ll help you measure the planet’s health.",
-                "Watch the Preparedness Meter carefully.",
-                "Balance resources to keep ecosystems thriving."
-              ]}
-              onTriggerEvent={() => increaseKnowledge(5)}
-            />
-          </div>
-
-          <div className="absolute top-20 left-1/2 -translate-x-1/2 z-50">
-            <NPC
-              name="Villager"
-              sprite="/assets/npcs/villager.png"
-              dialogue={[
-                "We live here every day.",
-                "Thank you for keeping our home safe!",
-                "Together, we can make Tiny Planet flourish."
-              ]}
-              onTriggerEvent={() => increaseHappiness(5)}
-            />
-          </div>
         </motion.div>
 
         {/* Side Panel */}
