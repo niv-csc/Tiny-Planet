@@ -4,12 +4,16 @@ import ElementPalette from './ElementPalette';
 import StatusPanel from './StatusPanel';
 import GameHeader from './GameHeader';
 import Tutorial from './Tutorial';
+import NPC from '@/components/NPC';
+import { useGameStore } from '@/store/gameStore'; // 👈 Import your store
 
 const GameScreen = () => {
+  const { increaseNature, increaseKnowledge, increaseHappiness } = useGameStore();
+
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
       <GameHeader />
-      
+
       <div className="flex-1 flex flex-col lg:flex-row p-4 gap-4 overflow-hidden">
         {/* Planet Area - Main focus */}
         <motion.div
@@ -21,7 +25,7 @@ const GameScreen = () => {
           <div className="absolute inset-0 rounded-2xl overflow-hidden">
             <Planet />
           </div>
-          
+
           {/* Floating tip */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -33,6 +37,46 @@ const GameScreen = () => {
           >
             🖱️ Drag to rotate • Scroll to zoom • Click to place
           </motion.div>
+
+          {/* NPCs */}
+          <div className="absolute bottom-10 left-10 z-50">
+            <NPC
+              name="Caretaker"
+              sprite="/assets/npcs/caretaker.png"
+              dialogue={[
+                "Welcome to Tiny Planet!",
+                "Your role is to nurture and protect the planet.",
+                "Plant trees, conserve water, and keep balance."
+              ]}
+              onTriggerEvent={() => increaseNature(5)} // 👈 Boost Nature
+            />
+          </div>
+
+          <div className="absolute bottom-10 right-10 z-50">
+            <NPC
+              name="Scientist"
+              sprite="/assets/npcs/scientist.png"
+              dialogue={[
+                "I’ll help you measure the planet’s health.",
+                "Watch the Preparedness Meter carefully.",
+                "Balance resources to keep ecosystems thriving."
+              ]}
+              onTriggerEvent={() => increaseKnowledge(5)} // 👈 Boost Knowledge
+            />
+          </div>
+
+          <div className="absolute top-10 left-10 z-50">
+            <NPC
+              name="Villager"
+              sprite="/assets/npcs/villager.png"
+              dialogue={[
+                "We live here every day.",
+                "Thank you for keeping our home safe!",
+                "Together, we can make Tiny Planet flourish."
+              ]}
+              onTriggerEvent={() => increaseHappiness(5)} // 👈 Boost Happiness
+            />
+          </div>
         </motion.div>
 
         {/* Side Panel */}
