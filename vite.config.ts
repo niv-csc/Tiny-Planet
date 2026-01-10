@@ -5,15 +5,16 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/Tiny-Planet/", // 👈 this is the fix for GitHub Pages
+  // 👇 base must match your repo name exactly for GitHub Pages
+  base: "/Tiny-Planet/",
   server: {
-    host: "::",
+    host: "0.0.0.0", // safer than "::" for local dev
     port: 8080,
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(__dirname, "src"), // no leading "./"
     },
   },
 }));
