@@ -1,73 +1,99 @@
-# Welcome to your Lovable project
 
-## Project info
+# 🌍 Tiny Planet
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Tiny Planet is a cozy, map‑driven disaster preparedness game built with **React, Vite, TypeScript, Zustand, and TailwindCSS**.  
+It blends playful animation with real‑world skills, helping players learn gentle preparedness strategies without fear.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ✨ Features
+- Animated **starry start screen** with fade‑in/out transitions
+- **Start Game button** that smoothly transitions into gameplay
+- Map‑based interactions with avatars, NPCs, and scenario triggers
+- **Toast notifications** for feedback and hints
+- Built with a modern stack:
+  - React + Vite
+  - Zustand for state management
+  - Framer Motion for animations
+  - TailwindCSS for styling
+  - Radix UI + Lucide icons for accessible components
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
+- Node.js (>= 18)
+- npm (>= 9)
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### Installation
+Clone the repo and install dependencies:
+```bash
+git clone https://github.com/<your-username>/Tiny-Planet.git
+cd Tiny-Planet
+npm install
 ```
 
-**Edit a file directly in GitHub**
+### Development
+Run the local dev server:
+```bash
+npm run dev
+```
+Open [http://localhost:5173/#/](http://localhost:5173/#/) in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Production Build
+Create a production build:
+```bash
+npm run build
+```
 
-**Use GitHub Codespaces**
+Preview the build locally:
+```bash
+npm run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🌐 Deployment (GitHub Pages)
 
-This project is built with:
+This project is configured for GitHub Pages with Vite:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Ensure `vite.config.ts` has:
+   ```ts
+   export default defineConfig({
+     base: "/Tiny-Planet/",
+   });
+   ```
+2. Build and deploy:
+   ```bash
+   npm run build
+   npm run deploy
+   ```
+3. Your app will be live at:
+   ```
+   https://<your-username>.github.io/Tiny-Planet/#/
+   ```
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 📂 Project Structure
+```
+src/
+ ├─ components/     # UI components
+ ├─ hooks/          # Custom hooks (toast, etc.)
+ ├─ store/          # Zustand game store
+ ├─ pages/          # StartScreen, Index, etc.
+ └─ main.tsx        # Entry point
+public/
+ └─ 404.html        # SPA fallback for GitHub Pages
+```
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🛠️ Scripts
+- `npm run dev` → Start local dev server
+- `npm run build` → Build for production
+- `npm run preview` → Preview production build
+- `npm run deploy` → Deploy to GitHub Pages (`gh-pages` branch)
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
